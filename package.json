@@ -1,0 +1,21 @@
+{
+  "name": "spinal-organ-endpoints-tcp-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "doc": "jsdoc2md --template templates/README.hbs --files modules/*.js > README.md",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Spinalcom",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "q": "^1.5.1",
+    "spinal-core-connectorjs": "git+https://github.com/spinalcom/spinal-core-connectorjs.git"
+  },
+  "devDependencies": {
+    "jsdoc-to-markdown": "^4.0.1"
+  }
+}
