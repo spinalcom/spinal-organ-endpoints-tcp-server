@@ -1,5 +1,9 @@
 # spinal-organ-endpoints-tcp-server
 
+The spinal-organ-endpoints-tcp-server is a simple organ connected to a spinalsystem and listens to a TCP port.
+It waits for a connection of a client which send a Json via TCP.
+The organ receive the TCP message parse it and then update a list in the virtual filesystem. 
+
 # installation
 
 Git clone the repository, then install the npm dependencies
@@ -28,18 +32,18 @@ module.exports.DEBUG = process.env.DEBUG || true; // print the TCP events
 # Data Models
 
 ## SpinalDevices
-Attributes| type
--|-
-dp_bim_prefix | String
-dp_time | Number
-data | Array.< SpinalEndpoint >
+Attributes| type |Comments
+-|-|-
+dp_bim_prefix | String | Unique identifier used to research if already in the Lst Model
+dp_time | Number | a Timestamp
+data | Array.< SpinalEndpoint >|
 ## SpinalEndpoint
-Attributes| type
--|-
-dp_bim_postfix| String
-dp_bim_format| String
-dp_unit| String
-dp_value_f| String \| Number
+Attributes| type| Comments
+-|-|-
+dp_bim_postfix| String | Unique identifier used to research if already in the fileSystem
+dp_bim_format| String|
+dp_unit| String|
+dp_value_f| String \| Number|
 
 # run the organ
 
