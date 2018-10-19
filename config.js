@@ -24,6 +24,5 @@ module.exports.CONNECTION_SPINALHUB_TIMEOUT = 10000; // time in ms || 0 = infini
 
 // tcp server specific
 
-module.exports.TCP_PORT_LISTEN = 7070;
-
-module.exports.DEBUG = true;
+module.exports.TCP_PORT_LISTEN = process.env.TCP_PORT_LISTEN || 7070;
+module.exports.DEBUG = process.env.DEBUG || true;

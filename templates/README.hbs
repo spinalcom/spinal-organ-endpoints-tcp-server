@@ -1,10 +1,97 @@
 # spinal-organ-endpoints-tcp-server
 
+# installation
+
+Git clone the repository, then install the npm dependencies
+```sh
+git clone https://github.com/spinalcom/spinal-organ-endpoints-tcp-server
+cd spinal-organ-endpoints-tcp-server
+npm i
+```
+
+# configuration
+
+Edit the configuration file so it can reach an existing spinalcom system, or you can use shell ENV variables.
+You can also set here the TCP port which the server listen to.
+```js
+module.exports.SPINAL_USER_NAME = process.env.SPINAL_USER_NAME || "admin";
+module.exports.SPINAL_PASSWORD = process.env.SPINAL_PASSWORD || "JHGgcz45JKilmzknzelf65ddDadggftIO98P";
+module.exports.SPINALHUB_IP = process.env.SPINALHUB_IP || "localhost";
+module.exports.SPINALHUB_PORT = process.env.SPINALHUB_PORT || 7777;
+module.exports.SPINAL_FILE_PATH = process.env.SPINAL_FILE_PATH || "Occitaline/DevicesList";
+
+module.exports.TCP_PORT_LISTEN = process.env.TCP_PORT_LISTEN || 7070; // Actual TCP port
+module.exports.DEBUG = process.env.DEBUG || true; // print the TCP events
+```
+
+
+# Data Models
+
+## SpinalDevices
+Attributes| type
+-|-
+dp_bim_prefix | String
+dp_time | Number
+data | Array.< SpinalEndpoint >
+## SpinalEndpoint
+Attributes| type
+-|-
+dp_bim_postfix| String
+dp_bim_format| String
+dp_unit| String
+dp_value_f| String \| Number
+
+# run the organ
+
+```sh
+node index.js
+# or if you want to set the TCP_PORT_LISTEN via an ENV variable
+# $> TCP_PORT_LISTEN=6545 node index.js
+```
+# Client test script 
+A simple client is made to test the organ
+```sh
+cd test_client
+node test_client_occitaline.js
+```
+
+object sent
+```js
+const obj = {
+  dp_bim_prefix: " D1_C1_VC_01",
+  dp_time: Date.now(),
+  data: [
+    {
+      dp_bim_postfix: "nciSensOffTemp",
+      dp_bim_format: "NUMBER",
+      dp_value_f: Math.random() * 100,
+      dp_unit: "deg"
+    },
+    {
+      dp_bim_postfix: "nvoSensFanSpeed_value",
+      dp_bim_format: "NUMBER",
+      dp_value_f: Math.random() * 100,
+      dp_unit: "%"
+    },
+    {
+      dp_bim_postfix: "SensFanStatus",
+      dp_bim_format: "STRING",
+      dp_value_f: Math.floor(Math.random() * 2) === 1 ? "OK" : "KO",
+      dp_unit: "STRING"
+    }
+  ]
+}
+```
+## check the value in Admin
+each time the `Client test script` run the client send a data to the organ tcp server then update the Model in the FileSystem. The data sent can be viewed in the admin browser viewer `http://SPINALSYSTEMHOSTNAME/html/admin/`, the default File path is `/Occitaline/DevicesList`
+
+![admin screenshot](images/admin_screen.png)
+
 
 
 * * *
 
-## Documentations
+## API Documentations
 
 {{>main}}
 * * *

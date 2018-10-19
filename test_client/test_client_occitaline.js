@@ -9,14 +9,20 @@ const obj = {
     {
       dp_bim_postfix: "nciSensOffTemp",
       dp_bim_format: "NUMBER",
-      dp_value_f: Math.random(40) * 100,
+      dp_value_f: Math.random() * 100,
       dp_unit: "deg"
     },
     {
       dp_bim_postfix: "nvoSensFanSpeed_value",
       dp_bim_format: "NUMBER",
-      dp_value_f: Math.random(40) * 100,
+      dp_value_f: Math.random() * 100,
       dp_unit: "%"
+    },
+    {
+      dp_bim_postfix: "SensFanStatus",
+      dp_bim_format: "STRING",
+      dp_value_f: Math.floor(Math.random() * 2) === 1 ? "OK" : "KO",
+      dp_unit: "STRING"
     }
   ]
 };
