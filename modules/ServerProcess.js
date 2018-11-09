@@ -59,7 +59,7 @@ class ServerProcess {
     if (this.config.DEBUG)
       console.log("DATA " + socket.remoteAddress + ": " + data);
     this.clientsMessages[socket.remoteAddress] += data;
-    if (this._parseIncomingTCPData(data) === true)
+    if (this._parseIncomingTCPData(this.clientsMessages[socket.remoteAddress]) === true)
       this.clientsMessages[socket.remoteAddress] = "";
   }
   /**
