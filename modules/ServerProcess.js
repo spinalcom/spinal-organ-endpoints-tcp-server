@@ -24,6 +24,7 @@ class ServerProcess {
     );
     this.bindedOnModelsChange = this.onModelsChange.bind(this);
     this.model.bind(this.bindedOnModelsChange);
+    this.clientsMessages = {};
   }
 
   /**
@@ -45,6 +46,7 @@ class ServerProcess {
       console.log(
         "CONNECTED: " + socket.remoteAddress + ":" + socket.remotePort
       );
+    this.clientsMessages[socket.remoteAddress] = "";
   }
   /**
    *
@@ -56,7 +58,9 @@ class ServerProcess {
   onData(socket, data) {
     if (this.config.DEBUG)
       console.log("DATA " + socket.remoteAddress + ": " + data);
-    this._parseIncomingTCPData(data);
+    this.clientsMessages[socket.remoteAddress] += data;
+    if (this._parseIncomingTCPData(data) === true)
+      this.clientsMessages[socket.remoteAddress] = "";
   }
   /**
    *
@@ -67,6 +71,7 @@ class ServerProcess {
   onClose(socket) {
     if (this.config.DEBUG)
       console.log("CLOSED: " + socket.remoteAddress + " " + socket.remotePort);
+    this.clientsMessages[socket.remoteAddress] = "";
   }
 
   /**
@@ -89,10 +94,11 @@ class ServerProcess {
       }
       // update device
       device.update(parsed);
-
+      return true;
       // update endpoints of the device
     } catch (error) {
       console.error(error);
+      return false;
     }
   }
 
